@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src/**",
     "format": "prettier src/** --write",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -16,12 +16,18 @@
     "react-dom": "^16.7.0-alpha.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^23.6.0",
     "eslint": "^5.10.0",
     "eslint-config-prettier": "^3.3.0",
+    "jest": "^23.6.0",
     "prettier": "^1.15.3",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",
     "react-scripts": "^2.1.1",
+    "react-testing-library": "^5.3.2",
     "rollup": "^0.67.4"
   }
 }
