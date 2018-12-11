@@ -8,8 +8,10 @@ module.exports = {
     rules: [{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }],
   },
   devServer: {
+    stats: 'errors-only',
     historyApiFallback: true,
     publicPath: '/',
+    port: 2234,
   },
   plugins: [
     new HtmlWebpackPlugin({
