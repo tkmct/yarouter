@@ -1,7 +1,11 @@
 {
   "name": "yarouter",
   "version": "1.0.0",
-  "description": "",
+  "description": "Yet another router for react",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkmct/yarouter.git"
+  },
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint src/**",
