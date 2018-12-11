@@ -1,7 +1,3 @@
-import React, { Component } from 'react'
+import Router from './Router'
 
-export default class Router extends Component {
-  render() {
-    return <div children={<p>Router</p>} />
-  }
-}
+export { Router }
