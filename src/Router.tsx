@@ -7,11 +7,7 @@ import stringify from 'json-stringify-pretty-compact'
 // location object type
 export const LocationContext = React.createContext(document.location || {})
 
-export default function Router({
-  children,
-}: {
-  children: React.ReactChildren
-}) {
+export default function Router({ children }: { children: React.ReactChildren }) {
   const location = useLocation()
   return (
     <LocationContext.Provider value={location}>

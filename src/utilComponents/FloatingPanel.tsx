@@ -14,10 +14,6 @@ const style: React.CSSProperties = {
   boxShadow: 'lightgrey 1px 1px 2px 1px',
 }
 
-export default function FloatingPanel({
-  children,
-}: {
-  children: React.ReactChildren
-}) {
+export default function FloatingPanel({ children }: { children: React.ReactChildren }) {
   return <div style={style}>{children}</div>
 }
