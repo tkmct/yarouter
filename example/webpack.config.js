@@ -4,8 +4,17 @@ const path = require('path')
 module.exports = {
   mode: 'development',
   entry: path.resolve('example/index.js'),
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+  },
   module: {
-    rules: [{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }],
+    rules: [
+      {
+        test: /\.(js|tsx?)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+    ],
   },
   devServer: {
     stats: 'errors-only',

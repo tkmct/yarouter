@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 
-const style = {
+const style: React.CSSProperties = {
   fontFamily: 'sans-serif',
   position: 'fixed',
   bottom: 10,
@@ -14,6 +14,10 @@ const style = {
   boxShadow: 'lightgrey 1px 1px 2px 1px',
 }
 
-export default function FloatingPanel({ children }) {
+export default function FloatingPanel({
+  children,
+}: {
+  children: React.ReactChildren
+}) {
   return <div style={style}>{children}</div>
 }
