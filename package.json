@@ -8,8 +8,8 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint src/**",
-    "format": "prettier src/** --write",
+    "lint": "tslint 'src/**/*'",
+    "format": "prettier 'src/**/*' --write",
     "tsc": "tsc --noEmit",
     "test": "jest",
     "example": "webpack-dev-server --config ./example/webpack.config.js"

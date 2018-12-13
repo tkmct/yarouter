@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 function useLocation() {
   const [location, setLocation] = useState(document.location) // location object
 
-  const updater = ( _e: Event ) => {
+  const updater = (_: Event) => {
     setLocation(document.location)
   }
 
