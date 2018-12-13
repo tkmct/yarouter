@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ReactDOM from 'react-dom'
 import { createBrowserHistory } from 'history'
-import { Router, Route } from '../src/index'
-
-const history = createBrowserHistory()
+import { Router, Route, LocationContext } from '../src/index'
 
 function Hello() {
+  const { location, history } = useContext(LocationContext)
+
   return (
     <p>
       Hello
@@ -23,6 +23,8 @@ function Hello() {
 function World() {
   return <p>World</p>
 }
+
+const history = createBrowserHistory()
 
 function App() {
   return (

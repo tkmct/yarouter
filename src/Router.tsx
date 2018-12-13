@@ -13,7 +13,12 @@ const initialLocation = {
   hash: '',
 }
 
-export const LocationContext = React.createContext<Location>(initialLocation)
+export const LocationContext = React.createContext<{ location: Location; history: History | null }>(
+  {
+    location: initialLocation,
+    history: null,
+  }
+)
 
 export default function Router({
   history,
@@ -26,7 +31,7 @@ export default function Router({
   const component = matchPath(location, children)
 
   return (
-    <LocationContext.Provider value={location}>
+    <LocationContext.Provider value={{ location, history }}>
       {component}
       <FloatingPanel>{stringify(location)}</FloatingPanel>
     </LocationContext.Provider>
