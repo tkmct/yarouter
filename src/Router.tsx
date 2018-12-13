@@ -1,17 +1,33 @@
 import * as React from 'react'
+import { History, Location } from 'history'
 import useLocation from './useLocation'
 import FloatingPanel from './utilComponents/FloatingPanel'
 // @ts-ignore
 import stringify from 'json-stringify-pretty-compact'
+import matchPath from './matchPath'
 
-// location object type
-export const LocationContext = React.createContext(document.location || {})
+const initialLocation = {
+  pathname: '',
+  search: '',
+  state: {},
+  hash: '',
+}
 
-export default function Router({ children }: { children: React.ReactChildren }) {
-  const location = useLocation()
+export const LocationContext = React.createContext<Location>(initialLocation)
+
+export default function Router({
+  history,
+  children,
+}: {
+  history: History
+  children: Array<React.ReactElement<any>>
+}) {
+  const location = useLocation(history)
+  const component = matchPath(location, children)
+
   return (
     <LocationContext.Provider value={location}>
-      {children}
+      {component}
       <FloatingPanel>{stringify(location)}</FloatingPanel>
     </LocationContext.Provider>
   )

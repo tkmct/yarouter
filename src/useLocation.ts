@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react'
+import { History, Location, Action } from 'history'
 
-function useLocation() {
-  const [location, setLocation] = useState(document.location) // location object
+function useLocation(history: History) {
+  const [location, setLocation] = useState(history.location) // location object
 
-  const updater = (_: Event) => {
-    setLocation(document.location)
+  const updater = (location: Location, _: Action) => {
+    setLocation(location)
   }
 
   useEffect(() => {
-    window.addEventListener('popstate', updater)
-    return () => {
-      window.removeEventListener('popstate', updater)
-    }
+    return history.listen(updater)
   })
 
   return location

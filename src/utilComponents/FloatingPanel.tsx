@@ -10,7 +10,7 @@ const style: React.CSSProperties = {
   borderRadius: 4,
   maxWidth: 240,
   overflowWrap: 'break-word',
-  whiteSpace: 'pre',
+  whiteSpace: 'pre-wrap',
   boxShadow: 'lightgrey 1px 1px 2px 1px',
 }
 
