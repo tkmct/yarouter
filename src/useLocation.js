@@ -8,9 +8,9 @@ function useLocation() {
   }
 
   useEffect(() => {
-    window.addEventListner('popstate', updater)
+    window.addEventListener('popstate', updater)
     return () => {
-      window.removeEventListener('popstate', updater)
+      window.removeEventLisetener('popstate', updater)
     }
   })
 
