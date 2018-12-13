@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { RoutesContext } from './Router'
+import { LocationContext } from './Router'
 
 export default function Route({ path, component }) {
-  const location = useContext(RoutesContext)
+  const location = useContext(LocationContext)
 
   // TODO: extract to util function
   if (path === location.pathname) {
