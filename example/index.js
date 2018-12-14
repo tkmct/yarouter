@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import ReactDOM from 'react-dom'
-import { createBrowserHistory } from 'history'
-import { Router, Route, LocationContext } from '../src/index'
+import { Router, Route, LocationContext, createBrowserHistory } from '../src/index'
 
 function Hello() {
   const { location, history } = useContext(LocationContext)
