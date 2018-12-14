@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, LocationContext, createBrowserHistory } from '../src/index'
+import { Router, Route, Link, LocationContext, createBrowserHistory } from '../src/index'
 
 function Hello() {
   const { location, history } = useContext(LocationContext)
@@ -8,19 +8,18 @@ function Hello() {
   return (
     <p>
       Hello
-      <button
-        onClick={() => {
-          history.push('/world')
-        }}
-      >
-        To world
-      </button>
+      <Link to="/world">To world</Link>
     </p>
   )
 }
 
 function World() {
-  return <p>World</p>
+  return (
+    <p>
+      World
+      <Link to="/">To Hello</Link>
+    </p>
+  )
 }
 
 const history = createBrowserHistory()

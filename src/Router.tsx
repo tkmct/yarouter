@@ -13,12 +13,10 @@ const initialLocation = {
   hash: '',
 }
 
-export const LocationContext = React.createContext<{ location: Location; history: History | null }>(
-  {
-    location: initialLocation,
-    history: null,
-  }
-)
+export const LocationContext = React.createContext<{ location: Location; history: History }>({
+  location: initialLocation,
+  history: ({} as any) as History,
+})
 
 export default function Router({
   history,
@@ -27,6 +25,10 @@ export default function Router({
   history: History
   children: Array<React.ReactElement<any>>
 }) {
+  if (!history) {
+    throw new Error('No history instance is provided.')
+  }
+
   const location = useLocation(history)
   const component = matchPath(location, children)
 
