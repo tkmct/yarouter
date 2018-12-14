@@ -21,8 +21,16 @@ const setupComponent = () => {
   return { history, component }
 }
 
-test('render', () => {
-  const { component } = setupComponent()
-  const container = render(component)
-  expect(container.getByText('Hello')).not.toBeNull()
+describe('Test router component', () => {
+  test('snapshot', () => {
+    const { component } = setupComponent()
+    const { container } = render(component)
+    expect(container).toMatchSnapshot()
+  })
+
+  test('render', () => {
+    const { component } = setupComponent()
+    const { getByText } = render(component)
+    expect(getByText('Hello')).not.toBeNull()
+  })
 })
