@@ -1,8 +1,6 @@
-import * as React from 'react'
-
 interface Props {
   path: string
-  component: () => React.ReactNode
+  component: () => JSX.Element
 }
 
 export default function Route({ component }: Props) {
