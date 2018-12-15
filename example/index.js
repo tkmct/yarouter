@@ -27,8 +27,8 @@ const history = createBrowserHistory()
 function App() {
   return (
     <Router history={history}>
-      <Route path="/" component={Hello} />
-      <Route path="/world" component={World} />
+      <Route path="/" component={Hello} onEnter={() => console.log('Enter hello!')} />
+      <Route path="/world" component={World} onEnter={() => console.log('Enter world!')} />
     </Router>
   )
 }
