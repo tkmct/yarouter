@@ -1,9 +1,6 @@
 import * as React from 'react'
 import { History, Location } from 'history'
 import useLocation from './useLocation'
-import FloatingPanel from './utilComponents/FloatingPanel'
-// @ts-ignore
-import stringify from 'json-stringify-pretty-compact'
 import matchPath from './matchPath'
 
 const initialLocation = {
@@ -33,9 +30,6 @@ export default function Router({
   const component = matchPath(location, children)
 
   return (
-    <LocationContext.Provider value={{ location, history }}>
-      {component}
-      <FloatingPanel>{stringify(location)}</FloatingPanel>
-    </LocationContext.Provider>
+    <LocationContext.Provider value={{ location, history }}>{component}</LocationContext.Provider>
   )
 }
