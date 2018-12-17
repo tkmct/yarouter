@@ -17,7 +17,7 @@ const setupComponent = (initialPath?: string) => {
 
   const component = (
     <Router history={history}>
-      <Route path="/" component={Hello} />
+      <Route exact path="/" component={Hello} />
       <Route path="/world" component={World} />
     </Router>
   )

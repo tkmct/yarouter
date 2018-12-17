@@ -3,13 +3,29 @@ import { Props as RouteProps } from './Route'
 
 type RouteChildType = React.ReactElement<RouteProps>
 
+interface MatchProps {
+  path: string
+  exact?: boolean
+}
+
+export function matchExact(path: string, currentPath: string): boolean {
+  return path === currentPath
+}
+
+export function match({ path, exact }: MatchProps, currentPath: string): boolean {
+  if (exact) {
+    return matchExact(path, currentPath)
+  }
+  return currentPath.startsWith(path)
+}
+
 export default function matchPath(
   location: { pathname: string },
   routes: RouteChildType[] | RouteChildType
-): React.ReactNode {
+) {
   if (!Array.isArray(routes)) {
-    return routes.props.path === location.pathname ? routes : null
+    return match(routes.props, location.pathname) ? routes : null
   }
 
-  return routes.find(route => route.props.path === location.pathname) || null
+  return routes.find(route => match(route.props, location.pathname)) || null
 }

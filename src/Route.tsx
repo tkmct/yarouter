@@ -2,7 +2,8 @@ import * as React from 'react'
 
 export interface Props {
   path: string
-  component: () => React.ReactElement<any>
+  component: any // TODO: fix this type
+  exact?: boolean
   onEnter?: () => any
 }
 
