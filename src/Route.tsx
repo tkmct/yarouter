@@ -1,6 +1,8 @@
-interface Props {
+import * as React from 'react'
+
+export interface Props {
   path: string
-  component: () => JSX.Element
+  component: () => React.ReactElement<any>
   onEnter?: () => any
 }
 

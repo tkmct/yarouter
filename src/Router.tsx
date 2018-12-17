@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { History, Location } from 'history'
+import { Props as RouteProps } from './Route'
 import useLocation from './useLocation'
 import matchPath from './matchPath'
 
@@ -20,7 +21,7 @@ export default function Router({
   children,
 }: {
   history: History
-  children: Array<React.ReactElement<any>>
+  children: Array<React.ReactElement<RouteProps>> | React.ReactElement<RouteProps>
 }) {
   if (!history) {
     throw new Error('No history instance is provided.')
