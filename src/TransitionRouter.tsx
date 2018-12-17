@@ -31,6 +31,7 @@ export default function Router({ history, children }: Props) {
   const location = useLocation(history)
   const component = matchPath(location, children)
   // TODO: triger transition on change location
+  // use transitioning state
   // get nextComponent
   // set currentComponent's state to leaving set nextComponent's state to entering
   // mount nextComponent
