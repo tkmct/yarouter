@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Router, Route, createBrowserHistory } from '../src'
 import { render } from 'react-testing-library'
 
@@ -9,11 +9,15 @@ function World() {
   return <p>World</p>
 }
 
-const setupComponent = () => {
+const setupComponent = (initialPath?: string) => {
   const history = createBrowserHistory()
+  if (initialPath) {
+    history.push(initialPath)
+  }
+
   const component = (
     <Router history={history}>
-      <Route path="/" component={Hello} />
+      <Route exact path="/" component={Hello} />
       <Route path="/world" component={World} />
     </Router>
   )
@@ -30,7 +34,13 @@ describe('Test router component', () => {
 
   test('render', () => {
     const { component } = setupComponent()
-    const { getByText } = render(component)
-    expect(getByText('Hello')).not.toBeNull()
+    const { container } = render(component)
+    expect(container.firstChild.textContent).toBe('Hello')
+  })
+
+  test('render world', () => {
+    const { component } = setupComponent('/world')
+    const { container } = render(component)
+    expect(container.firstChild.textContent).toBe('World')
   })
 })

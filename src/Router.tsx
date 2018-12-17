@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { History, Location } from 'history'
+import { Props as RouteProps } from './Route'
 import useLocation from './useLocation'
 import matchPath from './matchPath'
 
@@ -15,13 +16,12 @@ export const LocationContext = React.createContext<{ location: Location; history
   history: ({} as any) as History,
 })
 
-export default function Router({
-  history,
-  children,
-}: {
+interface Props {
   history: History
-  children: Array<React.ReactElement<any>>
-}) {
+  children: Array<React.ReactElement<RouteProps>> | React.ReactElement<RouteProps>
+}
+
+export default function Router({ history, children }: Props) {
   if (!history) {
     throw new Error('No history instance is provided.')
   }

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, Link, LocationContext, createBrowserHistory } from '../src/index'
+import { Router, Route, Switch, Link, LocationContext, createBrowserHistory } from '../src/index'
+import Nested from './nestedRoute'
 
 function Hello() {
   const { location, history } = useContext(LocationContext)
@@ -27,8 +28,9 @@ const history = createBrowserHistory()
 function App() {
   return (
     <Router history={history}>
-      <Route path="/" component={Hello} onEnter={() => console.log('Enter hello!')} />
+      <Route exact path="/" component={Hello} onEnter={() => console.log('Enter hello!')} />
       <Route path="/world" component={World} onEnter={() => console.log('Enter world!')} />
+      <Route path="/nested" component={Nested} />
     </Router>
   )
 }
