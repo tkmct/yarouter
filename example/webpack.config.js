@@ -4,6 +4,9 @@ const path = require('path')
 module.exports = {
   mode: 'development',
   entry: path.resolve('example/index.js'),
+  output: {
+    publicPath: '/',
+  },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
   },
