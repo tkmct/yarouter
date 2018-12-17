@@ -18,4 +18,14 @@ describe('Match functions', () => {
 
     expect(match(props, currentPath)).toBeTruthy()
   })
+
+  test('match with trailing slash', () => {
+    const props = {
+      path: '/hello',
+      exact: true,
+    }
+    const currentPath = '/hello/'
+
+    expect(match(props, currentPath)).toBeTruthy()
+  })
 })

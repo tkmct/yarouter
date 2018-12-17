@@ -29,7 +29,7 @@ function App() {
   return (
     <Router history={history}>
       <Route exact path="/" component={Hello} onEnter={() => console.log('Enter hello!')} />
-      <Route path="/world" component={World} onEnter={() => console.log('Enter world!')} />
+      <Route exact path="/world" component={World} onEnter={() => console.log('Enter world!')} />
       <Route path="/nested" component={Nested} />
     </Router>
   )

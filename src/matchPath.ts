@@ -13,19 +13,25 @@ export function matchExact(path: string, currentPath: string): boolean {
 }
 
 export function match({ path, exact }: MatchProps, currentPath: string): boolean {
+  const trimedCurrentPath = currentPath === '/' ? currentPath : trimTrailingSlash(currentPath)
+
   if (exact) {
-    return matchExact(path, currentPath)
+    return matchExact(path, trimedCurrentPath)
   }
-  return currentPath.startsWith(path)
+  return trimedCurrentPath.startsWith(path)
 }
 
 export default function matchPath(
-  location: { pathname: string },
+  { pathname }: { pathname: string },
   routes: RouteChildType[] | RouteChildType
 ) {
   if (!Array.isArray(routes)) {
-    return match(routes.props, location.pathname) ? routes : null
+    return match(routes.props, pathname) ? routes : null
   }
 
-  return routes.find(route => match(route.props, location.pathname)) || null
+  return routes.find(route => match(route.props, pathname)) || null
+}
+
+export function trimTrailingSlash(str: string): string {
+  return str.replace(/\/+$/, '')
 }
