@@ -22,13 +22,19 @@ export default function TransitionRouter({ history, children }: Props) {
     history,
     TRANSITION_DURATION
   )
-  if (isTransitioning) {
-    // TODO: display currentComponent and nextComponent
+  let matchedComponent
+  if (isTransitioning && nextLocation) {
+    // TODO: pass transition props to matchedComponent
+    matchedComponent = (
+      <>
+        {matchPath(currentLocation, children)}
+        {matchPath(nextLocation, children)}
+      </>
+    )
   } else {
-    // TODO: display currentComponent
+    matchedComponent = matchPath(currentLocation, children)
   }
 
-  const component = matchPath(location, children)
   // TODO: triger transition on change location
   // use transitioning state
   // get nextComponent
@@ -41,7 +47,7 @@ export default function TransitionRouter({ history, children }: Props) {
   return (
     <>
       <LocationContext.Provider value={{ location: currentLocation, history }}>
-        {component}
+        {matchedComponent}
       </LocationContext.Provider>
       <FloatingPanel>
         <p>Transitioning: {JSON.stringify(isTransitioning)}</p>
