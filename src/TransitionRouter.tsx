@@ -1,23 +1,24 @@
 import * as React from 'react'
 import { History } from 'history'
 import { Props as RouteProps } from './Route'
-import useLocation from './useLocation'
+import useTransition from './useTransition'
 import matchPath from './matchPath'
 import LocationContext from './locationContext'
+import FloatingPanel from './utilComponents/FloatingPanel'
 
-const TRANSITION_DURATION = 1000
+const TRANSITION_DURATION = 2000
 
 interface Props {
   history: History
   children: Array<React.ReactElement<RouteProps>> | React.ReactElement<RouteProps>
 }
 
-export default function Router({ history, children }: Props) {
+export default function TransitionRouter({ history, children }: Props) {
   if (!history) {
     throw new Error('No history instance is provided.')
   }
 
-  const location = useLocation(history)
+  const { isTransitioning, location } = useTransition(history, TRANSITION_DURATION)
   const component = matchPath(location, children)
   // TODO: triger transition on change location
   // use transitioning state
@@ -28,6 +29,11 @@ export default function Router({ history, children }: Props) {
   // unmount currentComponent, change currentComponent to nextComponent
 
   return (
-    <LocationContext.Provider value={{ location, history }}>{component}</LocationContext.Provider>
+    <>
+      <LocationContext.Provider value={{ location, history }}>{component}</LocationContext.Provider>
+      <FloatingPanel>
+        <span>Transitioning: {JSON.stringify(isTransitioning)}</span>
+      </FloatingPanel>
+    </>
   )
 }
