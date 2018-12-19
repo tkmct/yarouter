@@ -11,8 +11,8 @@ import {
 } from '../src/index'
 import Nested from './nestedRoute'
 
-function Hello() {
-  const { location, history } = useContext(LocationContext)
+function Hello({ transitionState }) {
+  console.log('Hello is ', transitionState)
 
   return (
     <div
@@ -31,7 +31,8 @@ function Hello() {
   )
 }
 
-function World() {
+function World({ transitionState }) {
+  console.log('World is ', transitionState)
   return (
     <div
       style={{

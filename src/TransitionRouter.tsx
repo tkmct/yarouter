@@ -30,8 +30,8 @@ export default function TransitionRouter({ history, children }: Props) {
     // TODO: catch if next route is invalid route
     MatchedComponent = () => (
       <>
-        {CurrentComponent && <CurrentComponent />}
-        {NextComponent && <NextComponent />}
+        {CurrentComponent && <CurrentComponent transitionState={'leaving'} />}
+        {NextComponent && <NextComponent transitionState={'entering'} />}
       </>
     )
   } else {
