@@ -18,7 +18,13 @@ export default function TransitionRouter({ history, children }: Props) {
     throw new Error('No history instance is provided.')
   }
 
-  const { isTransitioning, location } = useTransition(history, TRANSITION_DURATION)
+  const { isTransitioning, location, nextLocation } = useTransition(history, TRANSITION_DURATION)
+  if (isTransitioning) {
+    // TODO: display currentComponent and nextComponent
+  } else {
+    // TODO: display currentComponent
+  }
+
   const component = matchPath(location, children)
   // TODO: triger transition on change location
   // use transitioning state
@@ -32,7 +38,9 @@ export default function TransitionRouter({ history, children }: Props) {
     <>
       <LocationContext.Provider value={{ location, history }}>{component}</LocationContext.Provider>
       <FloatingPanel>
-        <span>Transitioning: {JSON.stringify(isTransitioning)}</span>
+        <p>Transitioning: {JSON.stringify(isTransitioning)}</p>
+        <p>Location: {location.pathname}</p>
+        <p>NextLocation: {nextLocation ? nextLocation.pathname : 'null'}</p>
       </FloatingPanel>
     </>
   )
