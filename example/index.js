@@ -15,19 +15,20 @@ function Hello() {
   const { location, history } = useContext(LocationContext)
 
   return (
-    <p>
+    <div style={{ height: '100vh', width: '100vw', backgroundColor: 'lightgreen' }}>
       Hello
       <Link to="/world">To world</Link>
-    </p>
+    </div>
   )
 }
 
 function World() {
   return (
-    <p>
+    <div style={{ height: '100vh', width: '100vw', backgroundColor: 'turquoise' }}>
       World
       <Link to="/">To Hello</Link>
-    </p>
+      <Link to="/world?q=hello">Query</Link>
+    </div>
   )
 }
 
