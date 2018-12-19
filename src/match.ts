@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Props as RouteProps } from './Route'
 import { trimTrailingSlash } from './util'
 
-type RouteChildType = React.ReactElement<RouteProps>
+type RouteElement = React.ReactElement<RouteProps>
 
 interface MatchProps {
   path: string
@@ -22,13 +22,23 @@ export function matchPath({ path, exact }: MatchProps, currentPath: string): boo
   return trimedCurrentPath.startsWith(path)
 }
 
-export default function match(
-  { pathname }: { pathname: string },
-  routes: RouteChildType[] | RouteChildType
-) {
-  if (!Array.isArray(routes)) {
-    return matchPath(routes.props, pathname) ? routes : null
+function getRoutedComponent(route: RouteElement | null): React.ComponentType<any> | null {
+  if (!route) {
+    return null
   }
 
-  return routes.find(route => matchPath(route.props, pathname)) || null
+  return route.props.component
+}
+
+export default function match(
+  { pathname }: { pathname: string },
+  routes: RouteElement[] | RouteElement
+): React.ComponentType<any> | null {
+  if (!Array.isArray(routes)) {
+    const routeComponent = matchPath(routes.props, pathname) ? routes : null
+    return getRoutedComponent(routeComponent)
+  }
+
+  const routeComponent = routes.find(route => matchPath(route.props, pathname)) || null
+  return getRoutedComponent(routeComponent)
 }

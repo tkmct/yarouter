@@ -2,7 +2,7 @@ import * as React from 'react'
 import { History } from 'history'
 import { Props as RouteProps } from './Route'
 import useTransition from './hooks/useTransition'
-import matchPath from './match'
+import match from './match'
 import LocationContext from './locationContext'
 import FloatingPanel from './utilComponents/FloatingPanel'
 
@@ -22,17 +22,20 @@ export default function TransitionRouter({ history, children }: Props) {
     history,
     TRANSITION_DURATION
   )
-  let matchedComponent
+  let MatchedComponent
   if (isTransitioning && nextLocation) {
+    const CurrentComponent = match(currentLocation, children)
+    const NextComponent = match(nextLocation, children)
     // TODO: pass transition props to matchedComponent
-    matchedComponent = (
+    // TODO: catch if next route is invalid route
+    MatchedComponent = () => (
       <>
-        {matchPath(currentLocation, children)}
-        {matchPath(nextLocation, children)}
+        {CurrentComponent && <CurrentComponent />}
+        {NextComponent && <NextComponent />}
       </>
     )
   } else {
-    matchedComponent = matchPath(currentLocation, children)
+    MatchedComponent = match(currentLocation, children)
   }
 
   // TODO: triger transition on change location
@@ -47,7 +50,7 @@ export default function TransitionRouter({ history, children }: Props) {
   return (
     <>
       <LocationContext.Provider value={{ location: currentLocation, history }}>
-        {matchedComponent}
+        {MatchedComponent && <MatchedComponent />}
       </LocationContext.Provider>
       <FloatingPanel>
         <p>Transitioning: {JSON.stringify(isTransitioning)}</p>
