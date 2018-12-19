@@ -10,9 +10,14 @@ const useTransition = (history: History, transitionDuration: number) => {
   // step1. set isTransitioning to true when location change
   useEffect(() => {
     const unlisten = history.listen(async (location: Location, _: Action) => {
+      if (isTransitioning) {
+        // TODO: handle click while isTransitioning is true
+      }
+
       if (location.pathname !== currentLocation.pathname) {
         setNextLocation(location)
         setIsTransitioning(true)
+        // TODO: handle click while isTransitioning is true
         await delay(transitionDuration)
         setNextLocation(null)
         setCurrentLocation(location)
