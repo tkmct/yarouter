@@ -1,7 +1,7 @@
 import * as React from 'react'
 import LocationContext from './locationContext'
 import { Props as RouteProps } from './Route'
-import matchPath from './matchPath'
+import matchPath from './match'
 
 interface Props {
   children: Array<React.ReactElement<RouteProps>> | React.ReactElement<RouteProps>

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { History } from 'history'
 import { Props as RouteProps } from './Route'
 import useTransition from './hooks/useTransition'
-import matchPath from './matchPath'
+import matchPath from './match'
 import LocationContext from './locationContext'
 import FloatingPanel from './utilComponents/FloatingPanel'
 

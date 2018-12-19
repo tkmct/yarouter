@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Props as RouteProps } from './Route'
+import { trimTrailingSlash } from './util'
 
 type RouteChildType = React.ReactElement<RouteProps>
 
@@ -8,30 +9,26 @@ interface MatchProps {
   exact?: boolean
 }
 
-export function matchExact(path: string, currentPath: string): boolean {
+export function matchExactPath(path: string, currentPath: string): boolean {
   return path === currentPath
 }
 
-export function match({ path, exact }: MatchProps, currentPath: string): boolean {
+export function matchPath({ path, exact }: MatchProps, currentPath: string): boolean {
   const trimedCurrentPath = currentPath === '/' ? currentPath : trimTrailingSlash(currentPath)
 
   if (exact) {
-    return matchExact(path, trimedCurrentPath)
+    return matchExactPath(path, trimedCurrentPath)
   }
   return trimedCurrentPath.startsWith(path)
 }
 
-export default function matchPath(
+export default function match(
   { pathname }: { pathname: string },
   routes: RouteChildType[] | RouteChildType
 ) {
   if (!Array.isArray(routes)) {
-    return match(routes.props, pathname) ? routes : null
+    return matchPath(routes.props, pathname) ? routes : null
   }
 
-  return routes.find(route => match(route.props, pathname)) || null
-}
-
-export function trimTrailingSlash(str: string): string {
-  return str.replace(/\/+$/, '')
+  return routes.find(route => matchPath(route.props, pathname)) || null
 }

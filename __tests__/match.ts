@@ -1,31 +1,31 @@
-import matchPath, { match, matchExact } from '../src/matchPath'
+import { matchPath, matchExactPath } from '../src/match'
 
 describe('Match functions', () => {
-  test('matchExact', () => {
+  test('matchExactPath', () => {
     const path = '/'
     const currentPath = '/'
     const notMatchingPath = '/hello'
 
-    expect(matchExact(path, currentPath)).toBeTruthy()
-    expect(matchExact(path, notMatchingPath)).toBeFalsy()
+    expect(matchExactPath(path, currentPath)).toBeTruthy()
+    expect(matchExactPath(path, notMatchingPath)).toBeFalsy()
   })
 
-  test('match', () => {
+  test('matchPath', () => {
     const props = {
       path: '/hello',
     }
     const currentPath = '/hello/world'
 
-    expect(match(props, currentPath)).toBeTruthy()
+    expect(matchPath(props, currentPath)).toBeTruthy()
   })
 
-  test('match with trailing slash', () => {
+  test('matchPath with trailing slash', () => {
     const props = {
       path: '/hello',
       exact: true,
     }
     const currentPath = '/hello/'
 
-    expect(match(props, currentPath)).toBeTruthy()
+    expect(matchPath(props, currentPath)).toBeTruthy()
   })
 })
