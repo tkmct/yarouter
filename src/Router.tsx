@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { History } from 'history'
 import { Props as RouteProps } from './Route'
-import useLocation from './useLocation'
+import useLocation from './hooks/useLocation'
 import matchPath from './matchPath'
 import LocationContext from './locationContext'
 

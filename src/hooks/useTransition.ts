@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { History, Action, Location } from 'history'
-import { delay } from './util'
+import { delay } from '../util'
 
 const useTransition = (history: History, transitionDuration: number) => {
   const [isTransitioning, setIsTransitioning] = useState(false)
