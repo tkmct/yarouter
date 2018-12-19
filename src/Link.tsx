@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { LocationContext } from './Router'
+import LocationContext from './locationContext'
 
 interface Props {
   children: React.ReactChildren

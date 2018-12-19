@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { LocationContext } from './Router'
+import LocationContext from './locationContext'
 import { Props as RouteProps } from './Route'
 import matchPath from './matchPath'
 
