@@ -1,22 +1,11 @@
 import * as React from 'react'
-import { History, Location } from 'history'
+import { History } from 'history'
 import { Props as RouteProps } from './Route'
 import useLocation from './useLocation'
 import matchPath from './matchPath'
+import LocationContext from './locationContext'
 
 const TRANSITION_DURATION = 1000
-
-const initialLocation = {
-  pathname: '',
-  search: '',
-  state: {},
-  hash: '',
-}
-
-export const LocationContext = React.createContext<{ location: Location; history: History }>({
-  location: initialLocation,
-  history: ({} as any) as History,
-})
 
 interface Props {
   history: History
