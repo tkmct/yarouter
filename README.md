@@ -11,10 +11,11 @@
 - [ ] Testing
 - [ ] code splitting
 - [ ] transition state for lazy loaded rotue
+- [ ] Server side rendering
 
-## API design
+## How to use
 
-React-Router like API
+### Basic Routing
 
 ```jsx
 <Router>
@@ -24,7 +25,19 @@ React-Router like API
 </Router>
 ```
 
-## Transition State
+### Transition Routing
+
+```jsx
+<TransitionRouter>
+  <Route path="/" exact component={Index} />
+  <Route path="/about" component={About} />
+  <Route path="/users" component={Users} />
+</TransitionRouter>
+```
+
+Routed Component receives transition state props
+
+### Transition State
 
 before-enter
 enter
