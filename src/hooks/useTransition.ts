@@ -77,6 +77,7 @@ const useTransition = (history: History, transitionDuration: number) => {
 
   async function handlePop(location: Location) {
     // TODO: implement
+    // use prevLocation, prevTransitionState
   }
 
   // step1. set isTransitioning to true when location change
