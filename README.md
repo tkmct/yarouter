@@ -10,7 +10,7 @@
 - [ ] Transition Mode
 - [ ] Testing
 - [ ] code splitting
-- [ ] transition state for lazy loaded rotue
+- [ ] transition state for lazy loaded route
 - [ ] Server side rendering
 
 ## How to use
