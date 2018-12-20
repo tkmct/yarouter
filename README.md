@@ -2,11 +2,15 @@
 
 ## TODOS
 
-- [ ] Basic Routing
+- [x] Basic Routing
 - [ ] Nested Routes
 - [ ] Link (Navigation Component)
 - [ ] Programmable Navigation
 - [ ] Transition State
+- [ ] Transition Mode
+- [ ] Testing
+- [ ] code splitting
+- [ ] transition state for lazy loaded rotue
 
 ## API design
 
@@ -19,3 +23,12 @@ React-Router like API
   <Route path="/users" component={Users} />
 </Router>
 ```
+
+## Transition State
+
+before-enter
+enter
+entered
+before-leave
+leave
+left

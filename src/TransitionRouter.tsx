@@ -18,24 +18,32 @@ export default function TransitionRouter({ history, children }: Props) {
     throw new Error('No history instance is provided.')
   }
 
-  const { isTransitioning, currentLocation, nextLocation } = useTransition(
-    history,
-    TRANSITION_DURATION
-  )
+  const {
+    isTransitioning,
+    currentLocation,
+    nextLocation,
+    currentTraisitionState,
+    nextTransitionState,
+  } = useTransition(history, TRANSITION_DURATION)
+
   let MatchedComponent
   if (isTransitioning && nextLocation) {
     const CurrentComponent = match(currentLocation, children)
     const NextComponent = match(nextLocation, children)
-    // TODO: pass transition props to matchedComponent
     // TODO: catch if next route is invalid route
-    MatchedComponent = () => (
+    // TODO: before leaving, entering state,
+    // need to set state to before-leave, before-enter
+    MatchedComponent = (
       <>
-        {CurrentComponent && <CurrentComponent transitionState={'leaving'} />}
-        {NextComponent && <NextComponent transitionState={'entering'} />}
+        {CurrentComponent && (
+          <CurrentComponent key="current" transitionState={currentTraisitionState} />
+        )}
+        {NextComponent && <NextComponent key="next" transitionState={nextTransitionState} />}
       </>
     )
   } else {
-    MatchedComponent = match(currentLocation, children)
+    const CurrentComponent = match(currentLocation, children)
+    MatchedComponent = <>{CurrentComponent && <CurrentComponent transitionState={'entered'} />}</>
   }
 
   // TODO: triger transition on change location
@@ -50,7 +58,7 @@ export default function TransitionRouter({ history, children }: Props) {
   return (
     <>
       <LocationContext.Provider value={{ location: currentLocation, history }}>
-        {MatchedComponent && <MatchedComponent />}
+        {MatchedComponent}
       </LocationContext.Provider>
       <FloatingPanel>
         <p>Transitioning: {JSON.stringify(isTransitioning)}</p>
