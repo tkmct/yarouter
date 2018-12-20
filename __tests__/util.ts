@@ -1,4 +1,4 @@
-import { trimTrailingSlash } from '../src/matchPath'
+import { trimTrailingSlash } from '../src/util'
 
 test('trim trailing slash', () => {
   expect(trimTrailingSlash('/hello/')).toBe('/hello')

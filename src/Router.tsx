@@ -2,7 +2,7 @@ import * as React from 'react'
 import { History } from 'history'
 import { Props as RouteProps } from './Route'
 import useLocation from './hooks/useLocation'
-import matchPath from './matchPath'
+import match from './match'
 import LocationContext from './locationContext'
 
 interface Props {
@@ -16,9 +16,15 @@ export default function Router({ history, children }: Props) {
   }
 
   const location = useLocation(history)
-  const component = matchPath(location, children)
+  const Component = match(location, children)
+
+  if (!Component) {
+    return null
+  }
 
   return (
-    <LocationContext.Provider value={{ location, history }}>{component}</LocationContext.Provider>
+    <LocationContext.Provider value={{ location, history }}>
+      <Component />
+    </LocationContext.Provider>
   )
 }

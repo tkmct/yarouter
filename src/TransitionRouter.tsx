@@ -2,7 +2,7 @@ import * as React from 'react'
 import { History } from 'history'
 import { Props as RouteProps } from './Route'
 import useTransition from './hooks/useTransition'
-import matchPath from './matchPath'
+import match from './match'
 import LocationContext from './locationContext'
 import FloatingPanel from './utilComponents/FloatingPanel'
 
@@ -18,21 +18,32 @@ export default function TransitionRouter({ history, children }: Props) {
     throw new Error('No history instance is provided.')
   }
 
-  const { isTransitioning, currentLocation, nextLocation } = useTransition(
-    history,
-    TRANSITION_DURATION
-  )
-  let matchedComponent
+  const {
+    isTransitioning,
+    currentLocation,
+    nextLocation,
+    currentTraisitionState,
+    nextTransitionState,
+  } = useTransition(history, TRANSITION_DURATION)
+
+  let MatchedComponent
   if (isTransitioning && nextLocation) {
-    // TODO: pass transition props to matchedComponent
-    matchedComponent = (
+    const CurrentComponent = match(currentLocation, children)
+    const NextComponent = match(nextLocation, children)
+    // TODO: catch if next route is invalid route
+    // TODO: before leaving, entering state,
+    // need to set state to before-leave, before-enter
+    MatchedComponent = (
       <>
-        {matchPath(currentLocation, children)}
-        {matchPath(nextLocation, children)}
+        {CurrentComponent && (
+          <CurrentComponent key="current" transitionState={currentTraisitionState} />
+        )}
+        {NextComponent && <NextComponent key="next" transitionState={nextTransitionState} />}
       </>
     )
   } else {
-    matchedComponent = matchPath(currentLocation, children)
+    const CurrentComponent = match(currentLocation, children)
+    MatchedComponent = <>{CurrentComponent && <CurrentComponent transitionState={'entered'} />}</>
   }
 
   // TODO: triger transition on change location
@@ -47,7 +58,7 @@ export default function TransitionRouter({ history, children }: Props) {
   return (
     <>
       <LocationContext.Provider value={{ location: currentLocation, history }}>
-        {matchedComponent}
+        {MatchedComponent}
       </LocationContext.Provider>
       <FloatingPanel>
         <p>Transitioning: {JSON.stringify(isTransitioning)}</p>
