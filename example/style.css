@@ -1,0 +1,27 @@
+.app-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: turquoise;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  transition: all 1s linear;
+  opacity: 1;
+}
+
+.container.leaving {
+  opacity: 0;
+}
+
+.container.entering {
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+}

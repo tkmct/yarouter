@@ -10,21 +10,13 @@ import {
   TransitionRouter,
 } from '../src/index'
 import Nested from './nestedRoute'
+import './style.css'
 
 function Hello({ transitionState }) {
   console.log('Hello is ', transitionState)
 
   return (
-    <div
-      style={{
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        textAlign: 'center',
-      }}
-    >
+    <div className={`container ${transitionState}`}>
       <h1 style={{ color: 'grey', backgroundColor: 'pink', textAlign: 'center' }}>Hello</h1>
       <Link to="/world">To world</Link>
     </div>
@@ -34,16 +26,7 @@ function Hello({ transitionState }) {
 function World({ transitionState }) {
   console.log('World is ', transitionState)
   return (
-    <div
-      style={{
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        textAlign: 'center',
-      }}
-    >
+    <div className={`container ${transitionState}`}>
       <h1 style={{ color: 'grey', backgroundColor: 'yellow', textAlign: 'center' }}>World</h1>
       <Link to="/">To Hello</Link>
       <Link to="/world?q=hello">Query</Link>
@@ -55,7 +38,7 @@ const history = createBrowserHistory()
 
 function App() {
   return (
-    <div style={{ height: '100vh', width: '100vw', backgroundColor: 'turquoise' }}>
+    <div className="app-container">
       <TransitionRouter history={history}>
         <Route exact path="/" component={Hello} onEnter={() => console.log('Enter hello!')} />
         <Route exact path="/world" component={World} onEnter={() => console.log('Enter world!')} />
