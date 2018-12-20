@@ -6,7 +6,7 @@ import match from './match'
 import LocationContext from './locationContext'
 import FloatingPanel from './utilComponents/FloatingPanel'
 
-const TRANSITION_DURATION = 2000
+const TRANSITION_DURATION = 800
 
 interface Props {
   history: History
