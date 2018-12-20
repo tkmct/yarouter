@@ -1,35 +1,75 @@
-import { useState, useEffect, useReducer } from 'react'
+import { useEffect, useReducer } from 'react'
 import { History, Action, Location } from 'history'
 import { delay } from '../util'
 
 type TransitionState = 'before-enter' | 'enter' | 'entered' | 'before-leave' | 'leave' | 'left'
 
+interface State {
+  isTransitioning: boolean
+  currentLocation: Location
+  nextLocation: Location | null
+  currentTraisitionState: TransitionState
+  nextTransitionState: TransitionState | null
+}
+
+function reducer(state: State, action: { type: string; payload: any /* TODO: type */ }): State {
+  switch (action.type) {
+    case 'INITIATE':
+      return {
+        ...state,
+        nextLocation: action.payload.nextLocation,
+        nextTransitionState: 'before-enter',
+        currentTraisitionState: 'before-leave',
+        isTransitioning: true,
+      }
+    case 'TRANSITION_ENTER':
+      return {
+        ...state,
+        nextTransitionState: 'enter',
+        currentTraisitionState: 'leave',
+      }
+    case 'TRANSITION_ENTERED':
+      return {
+        ...state,
+        nextTransitionState: 'entered',
+        currentTraisitionState: 'left',
+        isTransitioning: false,
+        nextLocation: null,
+        currentLocation: action.payload.currentLocation,
+      }
+    case 'FINISH':
+      return {
+        ...state,
+        currentTraisitionState: 'entered',
+        nextTransitionState: null,
+      }
+    default:
+      return state
+  }
+}
+
 const useTransition = (history: History, transitionDuration: number) => {
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [currentLocation, setCurrentLocation] = useState(history.location) // location object
-  const [nextLocation, setNextLocation] = useState<Location | null>(null)
-  const [currentTraisitionState, setCurrentTransitionState] = useState<TransitionState>('entered')
-  const [nextTransitionState, setNextTransitionState] = useState<TransitionState | null>(null)
+  const initialState: State = {
+    isTransitioning: false,
+    currentLocation: history.location,
+    nextLocation: null,
+    currentTraisitionState: 'entered',
+    nextTransitionState: null,
+  }
+  const [
+    { isTransitioning, currentLocation, nextLocation, currentTraisitionState, nextTransitionState },
+    dispatch,
+  ] = useReducer(reducer, initialState)
 
   async function handlePush(location: Location) {
     if (location.pathname !== currentLocation.pathname) {
-      setNextLocation(location)
-      setNextTransitionState('before-enter')
-      setCurrentTransitionState('before-leave')
-      setIsTransitioning(true)
+      dispatch({ type: 'INITIATE', payload: { nextLocation: location } })
       await delay(10) // FixMe: better way
-      setNextTransitionState('enter')
-      setCurrentTransitionState('leave')
-      // TODO: handle click while isTransitioning is true
+      dispatch({ type: 'TRANSITION_ENTER', payload: null })
       await delay(transitionDuration * 1.2)
-      setNextTransitionState('entered')
-      setCurrentTransitionState('left')
-      setIsTransitioning(false)
-      setNextLocation(null)
-      setCurrentLocation(location)
+      dispatch({ type: 'TRANSITION_ENTERED', payload: { currentLocation: location } })
       await delay(10) // FixMe: better way
-      setCurrentTransitionState('entered')
-      setNextTransitionState(null)
+      dispatch({ type: 'FINISH', payload: null })
     }
   }
 
