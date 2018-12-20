@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import { History, Action, Location } from 'history'
 import { delay } from '../util'
 
@@ -23,17 +23,17 @@ const useTransition = (history: History, transitionDuration: number) => {
         setNextTransitionState('before-enter')
         setCurrentTransitionState('before-leave')
         setIsTransitioning(true)
-        await delay(500) // FixMe: better way
+        await delay(10) // FixMe: better way
         setNextTransitionState('enter')
         setCurrentTransitionState('leave')
         // TODO: handle click while isTransitioning is true
-        await delay(transitionDuration)
+        await delay(transitionDuration * 1.2)
         setNextTransitionState('entered')
         setCurrentTransitionState('left')
         setIsTransitioning(false)
         setNextLocation(null)
         setCurrentLocation(location)
-        await delay(500) // FixMe: better way
+        await delay(10) // FixMe: better way
         setCurrentTransitionState('entered')
         setNextTransitionState(null)
       }
