@@ -2,6 +2,7 @@ import { useEffect, useReducer } from 'react'
 import { History, Action, Location } from 'history'
 import { delay } from '../util'
 
+// TODO: rename transition state for using with popping
 type TransitionState = 'before-enter' | 'enter' | 'entered' | 'before-leave' | 'leave' | 'left'
 
 interface State {
@@ -12,7 +13,8 @@ interface State {
   nextTransitionState: TransitionState | null
 }
 
-function reducer(state: State, action: { type: string; payload: any /* TODO: type */ }): State {
+// TODO: maybe need action creator? maybenot
+function reducer(state: State, action: { type: string; payload: any /* TODO: type. */ }): State {
   switch (action.type) {
     case 'INITIATE':
       return {
