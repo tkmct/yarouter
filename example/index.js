@@ -10,7 +10,7 @@ import {
   TransitionRouter,
 } from '../src/index'
 import Nested from './nestedRoute'
-import Tiles from './tiles'
+import Tiles, { TileDetail } from './tiles'
 import './style.css'
 
 function Hello({ transitionState }) {
@@ -63,7 +63,8 @@ function App() {
         <Route exact path="/slide1" component={Slide1} />
         <Route exact path="/slide2" component={Slide2} />
         <Route path="/nested" component={Nested} />
-        <Tiles path="/tiles" component={Tiles} />
+        <Tiles exact path="/tiles" component={Tiles} />
+        <Tiles path="/tiles/detail" component={TileDetail} />
       </TransitionRouter>
     </div>
   )
