@@ -12,6 +12,9 @@
   justify-content: center;
   text-align: center;
   transition: all 0.8s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .container.fade.before-enter {
@@ -21,9 +24,6 @@
 .container.fade.enter,
 .container.fade.entered {
   opacity: 1;
-  position: fixed;
-  top: 0;
-  left: 0;
 }
 
 .container.fade.before-leave {
@@ -51,7 +51,4 @@
 .container.slide.enter,
 .container.slide.entered {
   transform: translateX(0);
-  position: fixed;
-  top: 0;
-  left: 0;
 }

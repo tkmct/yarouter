@@ -45,6 +45,35 @@ function reducer(state: State, action: { type: string; payload: any /* TODO: typ
         currentTraisitionState: 'entered',
         nextTransitionState: null,
       }
+    case 'POP_INITIATE':
+      return {
+        ...state,
+        nextLocation: action.payload.nextLocation,
+        nextTransitionState: 'left',
+        currentTraisitionState: 'entered',
+        isTransitioning: true,
+      }
+    case 'POP_ENTER':
+      return {
+        ...state,
+        nextTransitionState: 'before-leave',
+        currentTraisitionState: 'before-enter',
+      }
+    case 'POP_ENTERED':
+      return {
+        ...state,
+        nextTransitionState: 'entered',
+        currentTraisitionState: 'left',
+        isTransitioning: false,
+        nextLocation: null,
+        currentLocation: action.payload.currentLocation,
+      }
+    case 'POP_FINISH':
+      return {
+        ...state,
+        currentTraisitionState: 'entered',
+        nextTransitionState: null,
+      }
     default:
       return state
   }
@@ -74,7 +103,14 @@ const useTransition = (history: History, transitionDuration: number) => {
   }
 
   async function handlePop(location: Location) {
-    // TODO: implement
+    console.log(location)
+    dispatch({ type: 'POP_INITIATE', payload: { nextLocation: location } })
+    await delay(10) // FixMe: better way
+    dispatch({ type: 'POP_ENTER', payload: null })
+    await delay(transitionDuration * 1.2)
+    dispatch({ type: 'POP_ENTERED', payload: { currentLocation: location } })
+    await delay(10) // FixMe: better way
+    dispatch({ type: 'POP_FINISH', payload: null })
   }
 
   // step1. set isTransitioning to true when location change
