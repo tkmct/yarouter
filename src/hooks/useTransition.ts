@@ -103,7 +103,6 @@ const useTransition = (history: History, transitionDuration: number, reverseOnPo
   }
 
   async function handlePop(location: Location) {
-    console.log(location)
     dispatch({ type: 'POP_INITIATE', payload: { nextLocation: location } })
     await delay(10) // FixMe: better way
     dispatch({ type: 'POP_ENTER', payload: null })
