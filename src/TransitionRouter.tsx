@@ -4,7 +4,6 @@ import { Props as RouteProps } from './Route'
 import useTransition from './hooks/useTransition'
 import match from './match'
 import LocationContext from './locationContext'
-import FloatingPanel from './utilComponents/FloatingPanel'
 
 const TRANSITION_DURATION = 800
 
@@ -31,8 +30,6 @@ export default function TransitionRouter({ history, children }: Props) {
     const CurrentComponent = match(currentLocation, children)
     const NextComponent = match(nextLocation, children)
     // TODO: catch if next route is invalid route
-    // TODO: before leaving, entering state,
-    // need to set state to before-leave, before-enter
     MatchedComponent = (
       <>
         {CurrentComponent && (
@@ -46,25 +43,9 @@ export default function TransitionRouter({ history, children }: Props) {
     MatchedComponent = <>{CurrentComponent && <CurrentComponent transitionState={'entered'} />}</>
   }
 
-  // TODO: triger transition on change location
-  // use transitioning state
-  // get nextComponent
-  // set currentComponent's state to leaving set nextComponent's state to entering
-  // mount nextComponent
-  // after TRANSITION_DURATION, set currentComponent's state to left, set nextComponent's state to entered
-  // unmount currentComponent, change currentComponent to nextComponent
-
-  // TODO: create TransitionLocationContext to provide transition state
   return (
-    <>
-      <LocationContext.Provider value={{ location: currentLocation, history }}>
-        {MatchedComponent}
-      </LocationContext.Provider>
-      <FloatingPanel>
-        <p>Transitioning: {JSON.stringify(isTransitioning)}</p>
-        <p>CurrentLocation: {currentLocation.pathname}</p>
-        <p>NextLocation: {nextLocation ? nextLocation.pathname : 'null'}</p>
-      </FloatingPanel>
-    </>
+    <LocationContext.Provider value={{ location: currentLocation, history }}>
+      {MatchedComponent}
+    </LocationContext.Provider>
   )
 }
