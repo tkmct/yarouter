@@ -9,10 +9,17 @@ const TRANSITION_DURATION = 800
 
 interface Props {
   history: History
+  transitionDuration?: number
+  reverseOnPop?: boolean
   children: Array<React.ReactElement<RouteProps>> | React.ReactElement<RouteProps>
 }
 
-export default function TransitionRouter({ history, children }: Props) {
+export default function TransitionRouter({
+  history,
+  children,
+  transitionDuration = TRANSITION_DURATION,
+  reverseOnPop = true,
+}: Props) {
   if (!history) {
     throw new Error('No history instance is provided.')
   }
@@ -23,7 +30,7 @@ export default function TransitionRouter({ history, children }: Props) {
     nextLocation,
     currentTraisitionState,
     nextTransitionState,
-  } = useTransition(history, TRANSITION_DURATION)
+  } = useTransition(history, transitionDuration, reverseOnPop)
 
   let MatchedComponent
   if (isTransitioning && nextLocation) {

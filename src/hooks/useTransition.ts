@@ -79,7 +79,7 @@ function reducer(state: State, action: { type: string; payload: any /* TODO: typ
   }
 }
 
-const useTransition = (history: History, transitionDuration: number) => {
+const useTransition = (history: History, transitionDuration: number, reverseOnPop?: boolean) => {
   const initialState: State = {
     isTransitioning: false,
     currentLocation: history.location,
@@ -126,10 +126,10 @@ const useTransition = (history: History, transitionDuration: number) => {
         return
       }
 
-      if (action === 'PUSH') {
-        handlePush(location)
-      } else if (action === 'POP') {
+      if (action === 'POP' && reverseOnPop) {
         handlePop(location)
+      } else {
+        handlePush(location)
       }
     })
     return unlisten
