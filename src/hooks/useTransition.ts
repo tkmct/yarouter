@@ -16,7 +16,7 @@ interface State {
 // TODO: maybe need action creator? maybenot
 function reducer(state: State, action: { type: string; payload: any /* TODO: type. */ }): State {
   switch (action.type) {
-    case 'INITIATE':
+    case 'PUSH_INITIATE':
       return {
         ...state,
         nextLocation: action.payload.nextLocation,
@@ -24,13 +24,13 @@ function reducer(state: State, action: { type: string; payload: any /* TODO: typ
         currentTraisitionState: 'before-leave',
         isTransitioning: true,
       }
-    case 'TRANSITION_ENTER':
+    case 'PUSH_ENTER':
       return {
         ...state,
         nextTransitionState: 'enter',
         currentTraisitionState: 'leave',
       }
-    case 'TRANSITION_ENTERED':
+    case 'PUSH_ENTERED':
       return {
         ...state,
         nextTransitionState: 'entered',
@@ -39,7 +39,7 @@ function reducer(state: State, action: { type: string; payload: any /* TODO: typ
         nextLocation: null,
         currentLocation: action.payload.currentLocation,
       }
-    case 'FINISH':
+    case 'PUSH_FINISH':
       return {
         ...state,
         currentTraisitionState: 'entered',
@@ -64,15 +64,13 @@ const useTransition = (history: History, transitionDuration: number) => {
   ] = useReducer(reducer, initialState)
 
   async function handlePush(location: Location) {
-    if (location.pathname !== currentLocation.pathname) {
-      dispatch({ type: 'INITIATE', payload: { nextLocation: location } })
-      await delay(10) // FixMe: better way
-      dispatch({ type: 'TRANSITION_ENTER', payload: null })
-      await delay(transitionDuration * 1.2)
-      dispatch({ type: 'TRANSITION_ENTERED', payload: { currentLocation: location } })
-      await delay(10) // FixMe: better way
-      dispatch({ type: 'FINISH', payload: null })
-    }
+    dispatch({ type: 'PUSH_INITIATE', payload: { nextLocation: location } })
+    await delay(10) // FixMe: better way
+    dispatch({ type: 'PUSH_ENTER', payload: null })
+    await delay(transitionDuration * 1.2)
+    dispatch({ type: 'PUSH_ENTERED', payload: { currentLocation: location } })
+    await delay(10) // FixMe: better way
+    dispatch({ type: 'PUSH_FINISH', payload: null })
   }
 
   async function handlePop(location: Location) {
